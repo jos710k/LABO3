@@ -1,0 +1,77 @@
+# Cargar el paquete readxl si aún no está instalado
+if (!requireNamespace("readxl", quietly = TRUE)) {
+  install.packages("readxl")
+}
+library(readxl)
+
+# Especificar la nueva ruta del archivo Excel con la extensión .xlsx
+ruta_archivo <- "C:/Users/José Borda Aparco/Downloads/quelccaya1992avance.xlsx"
+
+# Cargar la tercera hoja del archivo Excel en R, comenzando desde la segunda fila
+datos <- read_excel(ruta_archivo, sheet = 3)
+
+# Verificar nombres de columnas
+nombres_columnas <- colnames(datos)
+print(nombres_columnas)
+
+# Calcular la covarianza entre las columnas especificadas
+
+# 1. Particle concentration 0.63-0.80 μm per ml y Conductivity μS per cm
+if ("Particle concentration  0.63-0.80 μm per ml" %in% nombres_columnas && "Conductivity μS  per cm" %in% nombres_columnas) {
+  cov1 <- cov(datos$`Particle concentration  0.63-0.80 μm per ml`, datos$`Conductivity μS  per cm`, use = "complete.obs")
+  lm1 <- lm(`Conductivity μS  per cm` ~ `Particle concentration  0.63-0.80 μm per ml`, data = datos)
+  print(paste("Covarianza 1:", cov1))
+  print(summary(lm1))
+} else {
+  warning("Las columnas especificadas para Covarianza 1 no se encuentran en los datos.")
+}
+
+# 2. Particle concentration > 0.63-0.80 μm per ml y Conductivity μS per cm
+if ("Particle concentration > 0.63-0.80 μm per ml" %in% nombres_columnas && "Conductivity μS  per cm" %in% nombres_columnas) {
+  cov2 <- cov(datos$`Particle concentration > 0.63-0.80 μm per ml`, datos$`Conductivity μS  per cm`, use = "complete.obs")
+  lm2 <- lm(`Conductivity μS  per cm` ~ `Particle concentration > 0.63-0.80 μm per ml`, data = datos)
+  print(paste("Covarianza 2:", cov2))
+  print(summary(lm2))
+} else {
+  warning("Las columnas especificadas para Covarianza 2 no se encuentran en los datos.")
+}
+
+# 3. Particle concentration > 1.59 μm per ml y Conductivity μS per cm
+if ("Particle concentration      > 1.59 μm per ml" %in% nombres_columnas && "Conductivity μS  per cm" %in% nombres_columnas) {
+  cov3 <- cov(datos$`Particle concentration      > 1.59 μm per ml`, datos$`Conductivity μS  per cm`, use = "complete.obs")
+  lm3 <- lm(`Conductivity μS  per cm` ~ `Particle concentration      > 1.59 μm per ml`, data = datos)
+  print(paste("Covarianza 3:", cov3))
+  print(summary(lm3))
+} else {
+  warning("Las columnas especificadas para Covarianza 3 no se encuentran en los datos.")
+}
+
+# 4. Particle concentration 0.63-0.80 μm per ml y δ18O (‰)
+if ("Particle concentration  0.63-0.80 μm per ml" %in% nombres_columnas && "δ18O (‰)" %in% nombres_columnas) {
+  cov4 <- cov(datos$`Particle concentration  0.63-0.80 μm per ml`, datos$`δ18O (‰)`, use = "complete.obs")
+  lm4 <- lm(`δ18O (‰)` ~ `Particle concentration  0.63-0.80 μm per ml`, data = datos)
+  print(paste("Covarianza 4:", cov4))
+  print(summary(lm4))
+} else {
+  warning("Las columnas especificadas para Covarianza 4 no se encuentran en los datos.")
+}
+
+# 5. Particle concentration > 0.63-0.80 μm per ml y δ18O (‰)
+if ("Particle concentration > 0.63-0.80 μm per ml" %in% nombres_columnas && "δ18O (‰)" %in% nombres_columnas) {
+  cov5 <- cov(datos$`Particle concentration > 0.63-0.80 μm per ml`, datos$`δ18O (‰)`, use = "complete.obs")
+  lm5 <- lm(`δ18O (‰)` ~ `Particle concentration > 0.63-0.80 μm per ml`, data = datos)
+  print(paste("Covarianza 5:", cov5))
+  print(summary(lm5))
+} else {
+  warning("Las columnas especificadas para Covarianza 5 no se encuentran en los datos.")
+}
+
+# 6. Particle concentration > 1.59 μm per ml y δ18O (‰)
+if ("Particle concentration      > 1.59 μm per ml" %in% nombres_columnas && "δ18O (‰)" %in% nombres_columnas) {
+  cov6 <- cov(datos$`Particle concentration      > 1.59 μm per ml`, datos$`δ18O (‰)`, use = "complete.obs")
+  lm6 <- lm(`δ18O (‰)` ~ `Particle concentration      > 1.59 μm per ml`, data = datos)
+  print(paste("Covarianza 6:", cov6))
+  print(summary(lm6))
+} else {
+  warning("Las columnas especificadas para Covarianza 6 no se encuentran en los datos.")
+}
